@@ -1,11 +1,12 @@
 export function getTritone(note: string): string {
   const tritoneIntervals = {
-    C: "Gb",
+    C: "F#/Gb",
     Db: "G",
     D: "Ab",
     Eb: "A",
     E: "Bb",
     F: "B",
+    "F#": "C",
     Gb: "C",
     G: "Db",
     Ab: "D",

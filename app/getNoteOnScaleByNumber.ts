@@ -5,6 +5,7 @@ const majorScales = {
   Eb: ["Eb", "F", "G", "Ab", "Bb", "C", "D"],
   E: ["E", "F#", "G#", "A", "B", "C#", "D#"],
   F: ["F", "G", "A", "Bb", "C", "D", "E"],
+  "F#": ["F#", "G#", "A#", "B", "C#", "D#", "E#"],
   Gb: ["Gb", "Ab", "Bb", "Cb", "Db", "Eb", "E"],
   G: ["G", "A", "B", "C", "D", "E", "F#"],
   Ab: ["Ab", "Bb", "C", "Db", "Eb", "F", "G"],
