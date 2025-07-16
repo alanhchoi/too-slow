@@ -80,16 +80,17 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center h-screen gap-4 relative">
       <h1
         className={classNames(
-          "text-4xl font-bold",
-          showAnswer && "absolute -translate-y-16 text-xl"
+          "absolute text-4xl font-bold",
+          showAnswer &&
+            "-translate-y-8 scale-50 opacity-50 transition-all duration-200"
         )}
       >
         {question}
       </h1>
-      {showAnswer && <p className="text-4xl font-bold">{answer}</p>}
+      {showAnswer && <p className="absolute text-4xl font-bold">{answer}</p>}
       {showAnswer ? (
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="absolute bottom-8 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800"
           onClick={() => {
             setQuiz(getRandomQuiz());
             setShowAnswer(false);
@@ -99,7 +100,7 @@ export default function Home() {
         </button>
       ) : (
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="absolute bottom-8 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800"
           onClick={() => setShowAnswer(true)}
         >
           Show Answer
