@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import type { Route } from "./+types/home";
 import { getNoteOnScaleByNumber, scaleRoots } from "~/getNoteOnScaleByNumber";
+import { getTritone } from "~/getTritone";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -33,14 +34,29 @@ const scaleDegreeWords = [
   "seventh",
 ];
 
-export default function Home() {
-  // get random scale root
-  const [scaleRoot, setScaleRoot] = useState(getRandomScaleRoot());
-  const [scaleDegree, setScaleDegree] = useState(getRandomScaleDegree());
-  const [showAnswer, setShowAnswer] = useState(false);
-  const note = getNoteOnScaleByNumber(scaleRoot, scaleDegree);
+function getRandomQuiz() {
+  const quizType = Math.random() < 0.5 ? "scale" : "tritone";
+  const scaleRoot = getRandomScaleRoot();
+  if (quizType === "scale") {
+    const scaleDegree = getRandomScaleDegree();
+    const scaleDegreeWord = scaleDegreeWords[scaleDegree - 1];
+    const note = getNoteOnScaleByNumber(scaleRoot, scaleDegree);
+    return {
+      question: `What is the ${scaleDegreeWord} of ${formatNote(
+        scaleRoot
+      )}7 scale?`,
+      answer: formatNote(note),
+    };
+  }
+  return {
+    question: `What is the tritone of ${formatNote(scaleRoot)}7?`,
+    answer: `${formatNote(getTritone(scaleRoot))}7`,
+  };
+}
 
-  const scaleDegreeWord = scaleDegreeWords[scaleDegree - 1];
+export default function Home() {
+  const [{ question, answer }, setQuiz] = useState(() => getRandomQuiz());
+  const [showAnswer, setShowAnswer] = useState(false);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-4 relative">
@@ -50,15 +66,14 @@ export default function Home() {
           showAnswer && "absolute -translate-y-16 text-xl"
         )}
       >
-        What is the {scaleDegreeWord} of {formatNote(scaleRoot)}7 scale?
+        {question}
       </h1>
-      {showAnswer && <p className="text-4xl font-bold">{formatNote(note)}</p>}
+      {showAnswer && <p className="text-4xl font-bold">{answer}</p>}
       {showAnswer ? (
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           onClick={() => {
-            setScaleRoot(getRandomScaleRoot());
-            setScaleDegree(getRandomScaleDegree());
+            setQuiz(getRandomQuiz());
             setShowAnswer(false);
           }}
         >
