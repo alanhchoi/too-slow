@@ -35,23 +35,41 @@ const scaleDegreeWords = [
 ];
 
 function getRandomQuiz() {
-  const quizType = Math.random() < 0.5 ? "scale" : "tritone";
+  const quizType = Math.floor(Math.random() * 3);
+
   const scaleRoot = getRandomScaleRoot();
-  if (quizType === "scale") {
-    const scaleDegree = getRandomScaleDegree();
-    const scaleDegreeWord = scaleDegreeWords[scaleDegree - 1];
-    const note = getNoteOnScaleByNumber(scaleRoot, scaleDegree);
+
+  if (quizType === 2) {
+    // Tritone quiz
+    return {
+      question: `What is the tritone of ${formatNote(scaleRoot)}7?`,
+      answer: `${formatNote(getTritone(scaleRoot))}7`,
+    };
+  }
+
+  const scaleDegree = getRandomScaleDegree();
+  const scaleDegreeWord = scaleDegreeWords[scaleDegree - 1];
+  const note = getNoteOnScaleByNumber(scaleRoot, scaleDegree);
+
+  if (quizType === 0) {
     return {
       question: `What is the ${scaleDegreeWord} of ${formatNote(
         scaleRoot
       )}7 scale?`,
       answer: formatNote(note),
     };
+  } else {
+    return {
+      question: `${formatNote(note)} is which degree on the ${formatNote(
+        scaleRoot
+      )}7 scale?`,
+
+      // make the first letter of the answer uppercase
+      answer: `${scaleDegreeWord
+        .charAt(0)
+        .toUpperCase()}${scaleDegreeWord.slice(1)}`,
+    };
   }
-  return {
-    question: `What is the tritone of ${formatNote(scaleRoot)}7?`,
-    answer: `${formatNote(getTritone(scaleRoot))}7`,
-  };
 }
 
 export default function Home() {
