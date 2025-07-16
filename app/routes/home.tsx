@@ -80,14 +80,16 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center h-screen gap-4 relative">
       <h1
         className={classNames(
-          "absolute text-4xl font-bold",
+          "absolute text-4xl font-bold text-center px-4",
           showAnswer &&
-            "-translate-y-8 scale-50 opacity-50 transition-all duration-200"
+            "-translate-y-full scale-75 opacity-50 transition-all duration-200"
         )}
       >
         {question}
       </h1>
-      {showAnswer && <p className="absolute text-4xl font-bold">{answer}</p>}
+      {showAnswer && (
+        <p className="absolute text-4xl font-bold text-center px-4">{answer}</p>
+      )}
       {showAnswer ? (
         <button
           className="absolute bottom-8 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800"
